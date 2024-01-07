@@ -34,27 +34,27 @@ function Login() {
     }
 
     return (
-        <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
-            <div className='bg-white p-3 rounded w-25'>
-                <h2>Log in</h2>
+            <div className={"mainContainer"}>
+                <div className='titleContainer'>
+                    <h2>Log in</h2>
+                </div>
                 <form action="" onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label htmlFor='email'><strong>Email</strong></label>
+                    <div className={"inputContainer"}>
                         <input type='email' placeholder='Enter email' name='email'
-                        onChange={handleInput} className='form-control rounded-0'/>
-                        {errors.email && <span className='text-danger'> {errors.email}</span>}
+                        onChange={handleInput} className={"inputBox"}/>
+                        <label className="errorLabel">{errors.email}</label>
                     </div>
-                    <div className='mb-3'>
-                        <label htmlFor='password'><strong>Password</strong></label>
+                    <div className={"inputContainer"}>   
                         <input type='password' placeholder='Enter password' name='password'
-                        onChange={handleInput} className='form-control rounded-0'/>
-                        {errors.password && <span className='text-danger'> {errors.password}</span>}
+                        onChange={handleInput} className={"inputBox"}/>
+                        <label className="errorLabel">{errors.password}</label>
                     </div>
-                    <button type='submit' className='btn btn-success w-100'><strong>Log in</strong></button>
-                    <Link to="/signup" className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>Create Account</Link>
+                    <div className={"inputContainer"}>
+                        <button type='submit' className={"inputButton"}><strong>Log in</strong></button>
+                        <Link to="/signup" className={"inputButton"}>Create Account</Link>
+                    </div>  
                 </form>
             </div>
-        </div>
     )
 }
 
