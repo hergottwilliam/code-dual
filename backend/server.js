@@ -1,52 +1,34 @@
 const express = require("express");
-const mysql = require("mysql");
-const cors = require('cors');
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const router = express.Router();
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "codedual_user",
-    password: "pizz@GoldF1sh",
-    database: "codedual_db"
-})
+let activeRoomTokens = [];
 
-app.post('/signup', (req, res) => {
-    const sql = "INSERT INTO users (`name`, `email`, `password`) VALUES (?,?,?)";
-    const values = [
-        req.body.name,
-        req.body.email,
-        req.body.password
-    ];
-    console.log(sql, values);
-    db.query(sql, values, (err, data) => {
-        if (err) {
-            console.error('Error executing MySQL query:', err);
-            return res.status(500).json({ error: 'Internal Server Error', mysqlError: err });
-        }
-    
-        console.log('User successfully inserted:', data);
-        return res.json(data);
-    });
-})
+router.post('/generate-room-token', (req, res) => {
 
-app.post('/login', (req, res) => {
-    const sql = "SELECT * FROM users WHERE `email` = ? AND `password` = ?";
+    const roomToken = generateRandomToken();
 
-    db.query(sql, [req.body.email, req.body.password], (err, data) => {
-        if (err) {
-            return res.json("Error");
-        }
-        if (data.length > 0) {
-            return res.json("Success");
-        } else {
-            return res.json("Fail");
-        }
-    });
-})
+    res.json({ roomToken });
 
-app.listen(8080, () => {
-    console.log("listening on port 8080");
-})
+    // TODO: Implement logic for checking number of current rooms and limiting creations
+});
+
+function generateRandomToken() {
+    const tokenLength = 32;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    let token = '';
+
+    for (let i = 0; i < tokenLength; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        const randomChar = chars[randomIndex];
+
+        token += randomChar;
+    }
+
+    activeRoomTokens.push(token);
+
+    return token;
+}
+
+module.exports = router;
