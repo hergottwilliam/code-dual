@@ -31,4 +31,8 @@ function generateRandomToken() {
     return token;
 }
 
+// TODO: terminate room function
+
+console.log("Listening on port 8080");
+
 module.exports = router;

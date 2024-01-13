@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import Editor from '@monaco-editor/react'
 import * as Y from 'yjs'
@@ -8,7 +8,7 @@ import DevelopmentEnvironment from "./DevelopementEnvironment";
 
 function CollaborationManager() {
     const [collaborationSessionId, setCollaborationSessionId] = useState('');
-    const [editorRef, setEditorRef] = useState(null);
+    const [editorRef, setEditorRef] = useRef(null);
 
 
     const createRoomAndGenerateToken = async () => {
