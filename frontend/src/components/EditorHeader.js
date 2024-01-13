@@ -1,10 +1,16 @@
 import React from "react";
+import '../styles/EditorHeader.css'
 
 function EditorHeader () {
     return (
         <div className="headerMainContainer">
-            <button>Download</button>
-            <button>Run</button>
+            <div className="downloadButtonContainer">
+                <button>Download</button>
+            </div>
+            <div className="runButtonContainer">
+                <button>Run</button>
+            </div>
+            
         </div>
     )
 }

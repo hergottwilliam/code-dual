@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import '../styles/Sidebar.css';
 
 class CodeFile {
     constructor(name) {

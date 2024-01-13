@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Editor from '@monaco-editor/react'
 import Sidebar from './Sidebar'
 import EditorHeader from "./EditorHeader";
+import '../styles/DevelopmentEnvironment.css';
 
 function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) {
 
@@ -16,17 +17,24 @@ function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) 
     }
 
     return (
-        <div>
-            <Sidebar />
-            <EditorHeader />
-            <Editor
-                height="100vh"
-                width="100vw"
-                theme="vs-dark"
-                defaultLanguage="java"
-                // defaultValue={javaBoilerPlate}
-                onMount={(editor, monaco) => handleEditorDidMount(editor, monaco)}
-            />
+        <div className="developmentEnvironmentMainContainer">
+            <div className="sidebar">
+                <Sidebar />
+            </div>
+            <div className="editorContainer">
+                <div className="editorHeader">
+                    <EditorHeader />
+                </div>
+                <Editor
+                    height="100vh"
+                    width="100vw"
+                    theme="vs-dark"
+                    defaultLanguage="java"
+                    defaultValue={javaBoilerPlate}
+                    onMount={(editor, monaco) => handleEditorDidMount(editor, monaco)}
+                />
+            </div>
+
         </div>
 
     )
