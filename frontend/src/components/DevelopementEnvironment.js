@@ -6,20 +6,26 @@ import '../styles/DevelopmentEnvironment.css';
 
 function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) {
 
-    const javaBoilerPlate =
-    'public class Main {\n\tpublic static void main (String[] args) {\n\t\tSystem.out.println("Hello world");\n\t}\n}';
-   
     const editorRef = useRef(null);
-
     const [selectedFileContent, setSelectedFileContent] = useState('');
+    const [selectedFileName, setSelectedFileName] = useState('');
 
     function handleEditorDidMount(editor, monaco) {
         editorRef.current = editor;
 
     }
 
-    const handleFileSelect = (fileContent) => {
+    function handleFileSelect(fileContent, fileName) {
         setSelectedFileContent(fileContent);
+        setSelectedFileName(fileName);
+    }
+
+
+    function handleFileContentChange(value) {
+        setSelectedFileContent(value);
+
+        // Save the changes to local storage
+        localStorage.setItem(selectedFileName, value);
     }
 
     return (
@@ -36,7 +42,8 @@ function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) 
                     width="100vw"
                     theme="vs-dark"
                     defaultLanguage="java"
-                    // defaultValue={javaBoilerPlate}
+                    value={selectedFileContent}
+                    onChange={handleFileContentChange}
                     onMount={(editor, monaco) => handleEditorDidMount(editor, monaco)}
                 />
             </div>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import '../styles/Sidebar.css';
 
 class CodeFile {
@@ -11,8 +11,20 @@ class CodeFile {
 function Sidebar ({ onSelectFile }) {
 
     const [newFileInputValue, setNewFileInputValue] = useState('');
-    const [fileList, setFileList] = useState([]);
-    const [selectedFile, setSelectedFile] = useState(null);
+
+    const javaBoilerPlate =
+    'public class Main {\n\tpublic static void main (String[] args) {\n\t\tSystem.out.println("Hello world");\n\t}\n}';
+
+    const DEFAULT_FILE = new CodeFile("Main.java", javaBoilerPlate);
+    const [fileList, setFileList] = useState([DEFAULT_FILE]);
+    const [selectedFile, setSelectedFile] = useState(DEFAULT_FILE);
+
+    useEffect(() => {
+        onSelectFile(selectedFile.content);
+        // Store the selected file content in local storage
+        localStorage.setItem(selectedFile.name, selectedFile.content);
+    }, [selectedFile, onSelectFile]);
+
 
     const handleNewFileButtonClick = () => {
         setNewFileInputValue(newFileInputValue); 
@@ -26,9 +38,14 @@ function Sidebar ({ onSelectFile }) {
     }
 
     const handleFileClick = (file) => {
+        // Retrieve the content from local storage if it exists
+        const storedContent = localStorage.getItem(file.name);
+    
+
+    
         setSelectedFile(file);
-        onSelectFile(file.content);
-    }
+        onSelectFile(storedContent || file.content, file.name);
+    };
 
 
     return (
