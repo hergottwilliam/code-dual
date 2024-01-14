@@ -8,7 +8,7 @@ import DevelopmentEnvironment from "./DevelopementEnvironment";
 
 function CollaborationManager() {
     const [collaborationSessionId, setCollaborationSessionId] = useState('');
-    const [editorRef, setEditorRef] = useRef(null);
+    const [editorRef, setEditorRef] = useState(null);
 
 
     const createRoomAndGenerateToken = async () => {

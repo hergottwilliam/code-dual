@@ -11,15 +11,21 @@ function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) 
    
     const editorRef = useRef(null);
 
+    const [selectedFileContent, setSelectedFileContent] = useState('');
+
     function handleEditorDidMount(editor, monaco) {
         editorRef.current = editor;
 
     }
 
+    const handleFileSelect = (fileContent) => {
+        setSelectedFileContent(fileContent);
+    }
+
     return (
         <div className="developmentEnvironmentMainContainer">
             <div className="sidebar">
-                <Sidebar />
+                <Sidebar onSelectFile={handleFileSelect}/>
             </div>
             <div className="editorContainer">
                 <div className="editorHeader">
@@ -30,7 +36,7 @@ function DevelopmentEnvironment ({ collaborationSessionId, onEditorRefChange }) 
                     width="100vw"
                     theme="vs-dark"
                     defaultLanguage="java"
-                    defaultValue={javaBoilerPlate}
+                    // defaultValue={javaBoilerPlate}
                     onMount={(editor, monaco) => handleEditorDidMount(editor, monaco)}
                 />
             </div>

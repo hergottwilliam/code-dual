@@ -2,16 +2,17 @@ import React, {useState} from "react";
 import '../styles/Sidebar.css';
 
 class CodeFile {
-    constructor(name) {
+    constructor(name, content = "") {
         this.name = name;
-        this.content = "";
+        this.content = content;
     }
 }
 
-function Sidebar () {
+function Sidebar ({ onSelectFile }) {
 
     const [newFileInputValue, setNewFileInputValue] = useState('');
     const [fileList, setFileList] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const handleNewFileButtonClick = () => {
         setNewFileInputValue(newFileInputValue); 
@@ -24,6 +25,10 @@ function Sidebar () {
         setNewFileInputValue(''); // reset newFileInput to blank
     }
 
+    const handleFileClick = (file) => {
+        setSelectedFile(file);
+        onSelectFile(file.content);
+    }
 
 
     return (
@@ -36,17 +41,22 @@ function Sidebar () {
                     type="text"
                     placeholder="Create new file"
                     value={newFileInputValue}
+                    onChange={(e) => setNewFileInputValue(e.target.value)}
                 />
                 <button
                     className="newFileButton"
                     onClick={handleNewFileButtonClick}
-                > Create</button>
-                <div className="fileExplorerContainer">
+                >
+                 Create</button>
+
+            </div>
+            <div className="fileExplorerContainer">
                     {fileList.map((file, index) => (
-                        <div key={index}>{file.name}</div>
+                        <div key={index} onClick={() => handleFileClick(file)} className={selectedFile === file ? 'selectedFile' : ''}>
+                            {file.name}
+                        </div>
                     ))}
                 </div>
-            </div>
         </div>
     );
 }
