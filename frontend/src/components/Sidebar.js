@@ -1,50 +1,28 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import '../styles/Sidebar.css';
+import CodeFile from "./CodeFile";
 
-class CodeFile {
-    constructor(name, content = "") {
-        this.name = name;
-        this.content = content;
-    }
-}
 
-function Sidebar ({ onSelectFile }) {
+function Sidebar ({ onSelectFile, selectedFile, fileList, onNewfileButtonClick}) {
 
     const [newFileInputValue, setNewFileInputValue] = useState('');
+    
 
-    const javaBoilerPlate =
-    'public class Main {\n\tpublic static void main (String[] args) {\n\t\tSystem.out.println("Hello world");\n\t}\n}';
-
-    const DEFAULT_FILE = new CodeFile("Main.java", javaBoilerPlate);
-    const [fileList, setFileList] = useState([DEFAULT_FILE]);
-    const [selectedFile, setSelectedFile] = useState(DEFAULT_FILE);
-
-    useEffect(() => {
-        onSelectFile(selectedFile.content);
-        // Store the selected file content in local storage
-        localStorage.setItem(selectedFile.name, selectedFile.content);
-    }, [selectedFile, onSelectFile]);
-
-
+    // Adds new file to filelist and resets input to blank
     const handleNewFileButtonClick = () => {
         setNewFileInputValue(newFileInputValue); 
 
         if (newFileInputValue.trim() !== '') {
-            const newFile = new CodeFile(newFileInputValue);
-            setFileList([...fileList, newFile]) // add newFile to array of all users files
+            const newFile = new CodeFile(newFileInputValue,"", "java"); // TOCHANGE: make everyfile a java file until we handle creating specific files
+            onNewfileButtonClick(newFile);
+            
         }
 
         setNewFileInputValue(''); // reset newFileInput to blank
     }
 
     const handleFileClick = (file) => {
-        // Retrieve the content from local storage if it exists
-        const storedContent = localStorage.getItem(file.name);
-    
-
-    
-        setSelectedFile(file);
-        onSelectFile(storedContent || file.content, file.name);
+        onSelectFile(file);
     };
 
 
