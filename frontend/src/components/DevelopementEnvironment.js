@@ -44,7 +44,7 @@ function DevelopmentEnvironment () {
 
           console.log("Value of selectedFIle in DevEnvironment: ", selectedFile.content);
   
-          // selected file value IS being updated everytime, but the content of these files is not being saved after clicking off...
+          //  TODO: selected file value IS being updated everytime, but is missing the newest char
     }
 
     const updateFileList = (newFile) => {

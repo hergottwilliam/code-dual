@@ -16,30 +16,26 @@ function Sidebar ({ onSelectFile, selectedFile, fileList, onNewfileButtonClick})
 
     // Adds new file to filelist and resets input to blank
     const handleNewFileButtonClick = () => {
-        setNewFileInputValue(newFileInputValue); 
 
+        // TODO: handle invalid input; message to user
+        // TODO: handle existing file
 
+        setNewFileInputValue(newFileInputValue); // update state
 
         if (newFileInputValue.trim() !== '') { // if user input is not empty
 
+            const cleanedInput = newFileInputValue.trim().replace(/\s/g, ""); // trim edges, and remove all spaces (" ")
+            const lastDotIndex = cleanedInput.lastIndexOf("."); // find index of "."
         
-            for (let i = 0; i < newFileInputValue.length; i++) {
-                if (newFileInputValue[i] === '.') {
-                    let fileExtension = newFileInputValue.slice(i + 1, newFileInputValue.length); 
-                    console.log("Trimmed value: ", fileExtension);
+                if (lastDotIndex !== -1 && lastDotIndex !== 0) { // if "." is not the first or last char
+                    let fileExtension = cleanedInput.slice(lastDotIndex + 1).toLowerCase(); // seperate file extension 
 
-                    if (fileExtensionMap.has(fileExtension)) {
-                        const newFile = new CodeFile(newFileInputValue,"", fileExtensionMap.get(fileExtension)); // TOCHANGE: make everyfile a java file until we handle creating specific files
-                        onNewfileButtonClick(newFile);
+                    if (fileExtensionMap.has(fileExtension)) { // if the file extension is a supported language (see fileExtensionMap)
+                        const newFile = new CodeFile(cleanedInput,"", fileExtensionMap.get(fileExtension)); // build new file
+                        onNewfileButtonClick(newFile); // add the file to fileList in parent
                         console.log("New file created:", newFile);
-
                     }
-                }
-            }
-
-
-
-            
+                }    
         }
 
         setNewFileInputValue(''); // reset newFileInput to blank
