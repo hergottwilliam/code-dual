@@ -48,23 +48,23 @@ function DevelopmentEnvironment () {
     }
 
     const updateFileList = (newFile) => {
-        setFileList((prevFileList) => {
-          // Update the content of the selected file in the list
-          const updatedFileList = prevFileList.map((file) =>
-            file.name === selectedFile.name ? selectedFile : file
+        // Check if the file already exists in the list
+        const fileExists = fileList.some((file) => file.name === newFile.name);
+      
+        if (fileExists) {
+          // Update the existing file in the list
+          setFileList((prevFileList) =>
+            prevFileList.map((file) =>
+              file.name === newFile.name ? { ...file, content: newFile.content } : file
+            )
           );
-      
-          // If the selected file is not in the list, add it
-          if (!prevFileList.find((file) => file.name === selectedFile.name)) {
-            updatedFileList.push(selectedFile);
-          }
-      
+        } else {
           // Add the new file to the list
-          updatedFileList.push(newFile);
-      
-          return updatedFileList;
-        });
+          setFileList((prevFileList) => [...prevFileList, newFile]);
+        }
       };
+
+
     return (
         <div className="developmentEnvironmentMainContainer">
             <div className="sidebar">
