@@ -42,7 +42,7 @@ function DevelopmentEnvironment () {
           }));
 
 
-          console.log("Value of selectedFIle in DevEnvironment: ", selectedFile.content);
+          console.log("Value of selectedFIle in DevEnvironment: ", selectedFile.content); // TODO: delete this when it works
   
           //  TODO: selected file value IS being updated everytime, but is missing the newest char
     }
@@ -77,7 +77,9 @@ function DevelopmentEnvironment () {
             </div>
             <div className="editorContainer">
                 <div className="editorHeader">
-                    <EditorHeader />
+                    <EditorHeader
+                      selectedFile={selectedFile}
+                    />
                 </div>
                 <Editor
                     height="100vh"
