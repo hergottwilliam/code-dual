@@ -23,7 +23,7 @@ function EditorHeader ({ selectedFile }) {
         URL.revokeObjectURL(blobUrl);
     }
 
-    const getMimeType = (fileLanguage) => {
+    const getMimeType = (fileLanguage) => { // TODO: can I change this to hashmap?
         if (fileLanguage === 'python'){
             return 'text/x-python';
         } else if (fileLanguage === 'java') {

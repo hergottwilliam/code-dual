@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react'
 import * as Y from 'yjs'
 import { WebrtcProvider } from "y-webrtc"
 import { MonacoBinding } from "y-monaco"
-import DevelopmentEnvironment from "./DevelopementEnvironment";
+import DevelopmentEnvironment from "./DevelopmentEnvironment";
 
 function CollaborationManager() {
     const [collaborationSessionId, setCollaborationSessionId] = useState('');

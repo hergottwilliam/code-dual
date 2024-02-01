@@ -12,6 +12,7 @@ function Sidebar ({ onSelectFile, selectedFile, fileList, onNewfileButtonClick})
     fileExtensionMap.set("py", "python");
     fileExtensionMap.set("html", "html");
     fileExtensionMap.set("js", "javascript");
+    // TODO: add more language, any you add here must be added to download functionality as well
     
 
     // Adds new file to filelist and resets input to blank
@@ -33,7 +34,7 @@ function Sidebar ({ onSelectFile, selectedFile, fileList, onNewfileButtonClick})
                     if (fileExtensionMap.has(fileExtension)) { // if the file extension is a supported language (see fileExtensionMap)
                         const newFile = new CodeFile(cleanedInput,"", fileExtensionMap.get(fileExtension)); // build new file
                         onNewfileButtonClick(newFile); // add the file to fileList in parent
-                        console.log("New file created:", newFile);
+                        console.log("New file created:", newFile); // TODO: can delete this
                     }
                 }    
         }

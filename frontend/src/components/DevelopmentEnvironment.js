@@ -30,22 +30,24 @@ function DevelopmentEnvironment () {
 
 
     const handleFileContentChange = (value) => {
-        updateSelectedFileContent(value);
-        updateFileList(selectedFile);
-    }
-
-    const updateSelectedFileContent = (value) => {
-        // Update the content of the selected file
-        setSelectedFile((preSelectedFile) => ({
-            ...preSelectedFile,
-            content: value,
-          }));
-
-
-          console.log("Value of selectedFIle in DevEnvironment: ", selectedFile.content); // TODO: delete this when it works
+      // Use the callback function of setSelectedFile to ensure you have the latest state
+      setSelectedFile((prevSelectedFile) => {
+          // Update the content of the selected file
+          const updatedSelectedFile = {
+              ...prevSelectedFile,
+              content: value,
+          };
   
-          //  TODO: selected file value IS being updated everytime, but is missing the newest char
-    }
+          // Log the updated content for debugging
+          console.log("Value of updatedSelectedFile in DevEnvironment: ", updatedSelectedFile.content);
+  
+          // Update the file list with the new content
+          updateFileList(updatedSelectedFile);
+  
+          // Return the updated selected file
+          return updatedSelectedFile;
+      });
+  };
 
     const updateFileList = (newFile) => {
         // Check if the file already exists in the list

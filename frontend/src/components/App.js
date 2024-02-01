@@ -1,6 +1,6 @@
 import React from "react";
 
-import DevelopmentEnvironment from "./DevelopementEnvironment";
+import DevelopmentEnvironment from "./DevelopmentEnvironment";
 
 function App() {
   return (
