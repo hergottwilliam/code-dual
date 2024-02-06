@@ -32,6 +32,8 @@ function EditorHeader ({ selectedFile }) {
             return 'text/html';
         } else if (fileLanguage === 'javascript') {
             return 'application/javascript';
+        } else if (fileLanguage === 'cpp') {
+            return 'text/x-c++src';
         }
     }
 

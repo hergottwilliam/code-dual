@@ -12,6 +12,7 @@ function Sidebar ({ onSelectFile, selectedFile, fileList, onNewfileButtonClick})
     fileExtensionMap.set("py", "python");
     fileExtensionMap.set("html", "html");
     fileExtensionMap.set("js", "javascript");
+    fileExtensionMap.set("cpp", "cpp");
     // TODO: add more language, any you add here must be added to download functionality as well
     
 

@@ -38,9 +38,6 @@ function DevelopmentEnvironment () {
               content: value,
           };
   
-          // Log the updated content for debugging
-          console.log("Value of updatedSelectedFile in DevEnvironment: ", updatedSelectedFile.content);
-  
           // Update the file list with the new content
           updateFileList(updatedSelectedFile);
   
